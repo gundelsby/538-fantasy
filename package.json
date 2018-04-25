@@ -1,0 +1,19 @@
+{
+  "name": "538-fantasy",
+  "version": "1.0.0",
+  "description": "Match overview for Norwegian Eliteserien Fantasy league with strength predictions",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gundelsby/538-fantasy.git"
+  },
+  "author": "Ola",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gundelsby/538-fantasy/issues"
+  },
+  "homepage": "https://github.com/gundelsby/538-fantasy#readme"
+}
