@@ -1,19 +1,6 @@
-import teamParse from './data/team.js'
+import store from './data/store.js'
 
-// window.fetch('https://projects.fivethirtyeight.com/soccer-predictions/forecasts/2018_eliteserien_matches.json')
-//   .then(response => {
-//     return response.json()
-//   })
-//   .then(json => {
-//     console.log(json)
-//   })
+const matches = store.getMatches()
+const teams = store.getTeams()
 
-window.fetch('https://projects.fivethirtyeight.com/soccer-predictions/forecasts/2018_eliteserien_forecast.json')
-  .then(response => {
-    return response.json()
-  })
-  .then(json => {
-    json.forecasts[0].teams.forEach((team) => {
-      console.log(teamParse(team))
-    })
-  })
+console.log(`Found ${matches.length} matches and ${teams.length} teams`)

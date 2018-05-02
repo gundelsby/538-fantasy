@@ -28,11 +28,21 @@
   }
 */
 
+function getRealName (json) {
+  if (json.id === 2791) {
+    return 'søpla'
+  } else if (json.id === 438) {
+    return 'bartepakket'
+  } else {
+    return json.name
+  }
+}
+
 function parse (json) {
   return {
     code: json.code,
     id: json.id,
-    name: json.name
+    name: getRealName(json)
   }
 }
 
