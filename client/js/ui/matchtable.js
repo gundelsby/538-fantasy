@@ -8,11 +8,21 @@ function fillTeamCache (teams) {
   })
 }
 
+function calcBackgroundColor (match, isHomeGame) {
+  const r = Math.round(((isHomeGame ? match.prob2 : match.prob1) * 100))
+  const g = Math.round(((isHomeGame ? match.prob1 : match.prob2) * 100))
+  const b = 0
+
+  return `rgba(${r}, ${g}, ${b}, 0.5)`
+}
+
 function createMatchCell (currentTeamId, match) {
   const td = document.createElement('td')
-  const opponent = match.team1_id === currentTeamId ? teamCache[match.team2_id] : teamCache[match.team1_id]
+  const isHomeGame = match.team1_id === currentTeamId
+  const opponent = isHomeGame ? teamCache[match.team2_id] : teamCache[match.team1_id]
 
-  td.textContent = opponent.name
+  td.textContent = opponent.code
+  td.style.backgroundColor = calcBackgroundColor(match, isHomeGame)
 
   return td
 }
