@@ -1,6 +1,9 @@
 import store from './data/store.js'
 
-const matches = store.getMatches()
-const teams = store.getTeams()
+async function init () {
+  const matches = await store.getMatches()
+  const teams = await store.getTeams()
+  console.log(`Found ${matches.length} matches and ${teams.length} teams`)
+}
 
-console.log(`Found ${matches.length} matches and ${teams.length} teams`)
+init()

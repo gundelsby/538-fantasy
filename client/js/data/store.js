@@ -10,41 +10,30 @@ const store = {
   matches: []
 }
 
-function getTeams () {
+async function getJson (url) {
+  const response = await fetch(url)
+  return response.json()
+}
+
+async function getTeams () {
   if (!store.teams.length) {
-    fetch(FORECAST_DATA_URL)
-      .then(response => {
-        return response.json()
-      })
-      .then(json => {
-        return json.forecasts[0].teams.map((team) => {
-          return teamParse(team)
-        })
-      })
-      .then((teams) => {
-        store.teams = teams
-        return teams
-      })
+    const data = await getJson(FORECAST_DATA_URL)
+
+    store.teams = data.forecasts[0].teams.map((team) => {
+      return teamParse(team)
+    })
   }
 
   return store.teams
 }
 
-function getMatches () {
+async function getMatches () {
   if (!store.matches.length) {
-    fetch(MATCHES_DATA_URL)
-      .then(response => {
-        return response.json()
-      })
-      .then(json => {
-        return json.map(match => {
-          return matchParse(match)
-        })
-      })
-      .then((matches) => {
-        store.matches = matches
-        return store.matches
-      })
+    const data = await getJson(MATCHES_DATA_URL)
+
+    store.matches = data.map((match) => {
+      return matchParse(match)
+    })
   }
 
   return store.matches
