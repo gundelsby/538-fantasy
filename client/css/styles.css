@@ -7,3 +7,23 @@ th, td {
 th {
     text-align: left;
 }
+
+.difficulty--baby {
+    background-color: green;
+}
+
+.difficulty--easy {
+    background-color: greenyellow;
+}
+
+.difficulty--medium {
+    background-color: yellow;
+}
+
+.difficulty--hard {
+    background-color: orange;
+}
+
+.difficulty--nightmare {
+    background-color: red;
+}
