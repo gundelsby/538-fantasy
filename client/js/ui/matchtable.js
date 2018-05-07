@@ -28,7 +28,8 @@ function calcDifficultyClass (match, isHomeGame) {
 
 function createMatchInfo (currentTeamId, match) {
   const element = document.createElement('div')
-  element.classList.add('match--info')
+  element.classList.add('match--info', 'matchtable--content')
+  
   const isHomeGame = match.team1_id === currentTeamId
   const opponent = isHomeGame ? teamCache[match.team2_id] : teamCache[match.team1_id]
 
@@ -66,11 +67,19 @@ function createRoundCell (currentTeamId, matches) {
   return td
 }
 
+function createTeamHeader (teamName) {
+  const th = document.createElement('th')
+  const content = document.createElement('div')
+  content.classList.add('matchtable--content')
+  content.textContent = teamName
+  th.appendChild(content)
+
+  return th
+}
+
 function createTeamRow (team, matches) {
   const tr = document.createElement('tr')
-  const th = document.createElement('th')
-  th.textContent = team.name
-  tr.appendChild(th)
+  tr.appendChild(createTeamHeader(team.name))
 
   const upcomingMatches = matches.filter(match => {
     return match.team1_id === team.id || match.team2_id === team.id

@@ -1,31 +1,48 @@
+body {
+    background-color: #333;
+    color: #eee;
+}
+
 th, td {
+    background-color: #555;
     border-collapse: collapse;
-    border: 1px solid black;
-    padding: 4px;
+    border: 1px solid #444;
 }
 
 th {
     text-align: left;
 }
 
+.matchtable {
+    margin: 4px;
+}
+
+.matchtable--content {
+    padding: 4px 8px;
+}
+
+.match--info {
+    color: #227;
+}
+
 .difficulty--baby {
-    background-color: green;
+    background-color: #4f4;
 }
 
 .difficulty--easy {
-    background-color: greenyellow;
+    background-color: #7d3;
 }
 
 .difficulty--medium {
-    background-color: yellow;
+    background-color: #ee0;
 }
 
 .difficulty--hard {
-    background-color: orange;
+    background-color: #fa3;
 }
 
 .difficulty--nightmare {
-    background-color: red;
+    background-color: #f66;
 }
 
 .round--matches {
