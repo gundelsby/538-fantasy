@@ -31,7 +31,7 @@ shootout_winner: null
 function parse (json) {
   return {
     id: json.id,
-    datetime: json.datetime,
+    datetime: new Date(json.datetime),
     team1_id: json.team1_id,
     team2_id: json.team2_id,
     prob1: json.prob1,

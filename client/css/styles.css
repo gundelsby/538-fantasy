@@ -27,3 +27,7 @@ th {
 .difficulty--nightmare {
     background-color: red;
 }
+
+.round--matches {
+    list-style-type: none;
+}

@@ -1,7 +1,7 @@
+import rounds from '../data/rounds.js'
+
 const MATCHTABLE_ID = 'matchtable'
-
-const teamCache = {}
-
+const DISPLAY_FROM_DATE = Date.now()
 const difficulty = [
   {name: 'baby', class: 'difficulty--baby'},
   {name: 'easy', class: 'difficulty--easy'},
@@ -9,6 +9,8 @@ const difficulty = [
   {name: 'hard', class: 'difficulty--hard'},
   {name: 'nightmare', class: 'difficulty--nightmare'}
 ]
+
+const teamCache = {}
 
 function fillTeamCache (teams) {
   teams.forEach(team => {
@@ -20,20 +22,46 @@ function calcDifficultyClass (match, isHomeGame) {
   const adversityFactor = 1.0 - ((isHomeGame ? match.prob1 : match.prob2) + match.probtie / 2)
   const difficultyPosition = Math.ceil(adversityFactor * difficulty.length)
   const calculatedDifficulty = difficulty[difficultyPosition - 1]
-  if (match.id === 401007367) {
-    console.log(isHomeGame ? match.prob1 : match.prob2, match.probtie, isHomeGame ? match.prob2 : match.prob1)
-    console.log(adversityFactor, difficultyPosition, calculatedDifficulty && calculatedDifficulty.name)
-  }
+
   return calculatedDifficulty ? calculatedDifficulty.class : ''
 }
 
-function createMatchCell (currentTeamId, match) {
-  const td = document.createElement('td')
+function createMatchInfo (currentTeamId, match) {
+  const element = document.createElement('div')
+  element.classList.add('match--info')
   const isHomeGame = match.team1_id === currentTeamId
   const opponent = isHomeGame ? teamCache[match.team2_id] : teamCache[match.team1_id]
 
-  td.textContent = `${opponent.code} (${isHomeGame ? 'H' : 'B'})`
-  td.className = calcDifficultyClass(match, isHomeGame)
+  element.textContent = `${opponent.code} (${isHomeGame ? 'H' : 'B'})`
+  element.classList.add(calcDifficultyClass(match, isHomeGame))
+
+  return element
+}
+
+function createRoundCell (currentTeamId, matches) {
+  const td = document.createElement('td')
+  td.classList.add('round')
+
+  if (matches) {
+    const list = document.createElement('ol')
+    list.classList.add('round--matches', 'nrk-unset')
+
+    const matchItems = matches.map(match => {
+      const matchInfo = createMatchInfo(currentTeamId, match)
+      const listItem = document.createElement('li')
+      listItem.classList.add('match')
+
+      listItem.appendChild(matchInfo)
+
+      return listItem
+    })
+
+    matchItems.forEach(item => {
+      list.appendChild(item)
+    })
+
+    td.appendChild(list)
+  }
 
   return td
 }
@@ -47,11 +75,24 @@ function createTeamRow (team, matches) {
   const upcomingMatches = matches.filter(match => {
     return match.team1_id === team.id || match.team2_id === team.id
   }).filter(match => {
-    return Date.parse(match.datetime) > Date.now()
+    return match.datetime > DISPLAY_FROM_DATE
   })
 
-  upcomingMatches.forEach(match => {
-    tr.appendChild(createMatchCell(team.id, match))
+  const upcomingRounds = rounds.filter(round => {
+    return round.start > DISPLAY_FROM_DATE
+  }).map((round, index, arr) => {
+    const nextStart = arr[index + 1] ? arr[index + 1].start : null
+
+    round.matches = upcomingMatches.filter(match => {
+      return match.datetime >= round.start && match.datetime < nextStart
+    })
+
+    return round
+  })
+
+  upcomingRounds.forEach(round => {
+    const cell = createRoundCell(team.id, round.matches)
+    tr.appendChild(cell)
   })
 
   return tr
