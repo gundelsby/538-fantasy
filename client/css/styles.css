@@ -3,9 +3,12 @@ body {
     color: #eee;
 }
 
+table {
+    border-collapse: collapse;
+}
+
 th, td {
     background-color: #555;
-    border-collapse: collapse;
     border: 1px solid #444;
 }
 
@@ -47,4 +50,28 @@ th {
 
 .round--matches {
     list-style-type: none;
+}
+
+
+.team {
+    position: relative;
+}
+.team--details {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: none;
+    border: 1px solid #eee;
+}
+.team--details__data {
+    background: #888;
+}
+.team--details__data th,
+.team--details__data td {
+    padding: 4px 8px;
+    white-space: nowrap;
+}
+.team:hover .team--details {
+    display: block;
+    z-index: 2;
 }

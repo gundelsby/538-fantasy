@@ -36,7 +36,9 @@ function parse (json) {
     team2_id: json.team2_id,
     prob1: json.prob1,
     prob2: json.prob2,
-    probtie: json.probtie
+    probtie: json.probtie,
+    score1: json.score1,
+    score2: json.score2
   }
 }
 
