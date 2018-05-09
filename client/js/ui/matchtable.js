@@ -1,45 +1,11 @@
 import rounds from '../data/rounds.js'
-import matchPredictions from '../predictions/match.js'
+import createTeamHeader from './teaminfo.js'
+import matchInfo from './matchinfo.js'
 
 const MATCHTABLE_ID = 'matchtable'
 const DISPLAY_FROM_DATE = Date.now()
-const difficulty = [
-  {name: 'baby', class: 'difficulty--baby'},
-  {name: 'easy', class: 'difficulty--easy'},
-  {name: 'medium', class: 'difficulty--medium'},
-  {name: 'hard', class: 'difficulty--hard'},
-  {name: 'nightmare', class: 'difficulty--nightmare'}
-]
 
-const teamCache = {}
-let matchPredictor = null
-
-function fillTeamCache (teams) {
-  teams.forEach(team => {
-    teamCache[team.id] = team
-  })
-}
-
-function calcDifficultyClass (match, isHomeGame) {
-  const adversityFactor = matchPredictor.calcAdversityFactor(match, isHomeGame)
-  const difficultyPosition = Math.ceil(adversityFactor * difficulty.length)
-  const calculatedDifficulty = difficulty[difficultyPosition - 1]
-
-  return calculatedDifficulty ? calculatedDifficulty.class : ''
-}
-
-function createMatchInfo (currentTeamId, match) {
-  const element = document.createElement('div')
-  element.classList.add('match--info', 'matchtable--content')
-
-  const isHomeGame = match.team1_id === currentTeamId
-  const opponent = isHomeGame ? teamCache[match.team2_id] : teamCache[match.team1_id]
-
-  element.textContent = `${opponent.code} (${isHomeGame ? 'H' : 'B'})`
-  element.classList.add(calcDifficultyClass(match, isHomeGame))
-
-  return element
-}
+let createMatchInfo = null
 
 function createRoundCell (currentTeamId, matches) {
   const td = document.createElement('td')
@@ -67,53 +33,6 @@ function createRoundCell (currentTeamId, matches) {
   }
 
   return td
-}
-
-function createTeamDetailsDataRow (name, value) {
-  const row = document.createElement('tr')
-
-  const header = document.createElement('th')
-  header.textContent = name
-  row.appendChild(header)
-
-  const data = document.createElement('td')
-  data.textContent = typeof value === 'number' ? Number(value).toFixed(2) : value
-  row.appendChild(data)
-
-  return row
-}
-
-function createTeamDetails (team) {
-  const container = document.createElement('div')
-  container.classList.add('team--details')
-
-  const dataTable = document.createElement('table')
-  dataTable.classList.add('team--details__data')
-  dataTable.appendChild(createTeamDetailsDataRow('F', team.goalsFor))
-  dataTable.appendChild(createTeamDetailsDataRow('F/M', team.goalsFor / team.matchesPlayed))
-  dataTable.appendChild(createTeamDetailsDataRow('F/M (Home)', team.goalsForHome / team.matchesPlayedHome))
-  dataTable.appendChild(createTeamDetailsDataRow('F/M (Away)', team.goalsForAway / team.matchesPlayedAway))
-  dataTable.appendChild(createTeamDetailsDataRow('A', team.goalsAgainst))
-  dataTable.appendChild(createTeamDetailsDataRow('A/M', team.goalsAgainst / team.matchesPlayed))
-  dataTable.appendChild(createTeamDetailsDataRow('A/M (Home)', team.goalsAgainstHome / team.matchesPlayedHome))
-  dataTable.appendChild(createTeamDetailsDataRow('A/M (Away)', team.goalsAgainstAway / team.matchesPlayedAway))
-  container.appendChild(dataTable)
-
-  return container
-}
-
-function createTeamHeader (team) {
-  const th = document.createElement('th')
-  th.classList.add('team')
-
-  const content = document.createElement('div')
-  content.classList.add('matchtable--content')
-  content.textContent = team.name
-  th.appendChild(content)
-
-  th.appendChild(createTeamDetails(team))
-
-  return th
 }
 
 function createTeamRow (team, matches) {
@@ -150,8 +69,7 @@ export default (teams, matches) => {
   const tbody = document.createElement('tbody')
   const container = document.getElementById(MATCHTABLE_ID)
 
-  fillTeamCache(teams)
-  matchPredictor = matchPredictions(teams)
+  createMatchInfo = matchInfo(teams)
 
   teams.forEach(team => {
     const tr = createTeamRow(team, matches)
