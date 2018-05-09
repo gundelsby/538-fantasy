@@ -1,4 +1,5 @@
 import rounds from '../data/rounds.js'
+import matchPredictions from '../predictions/match.js'
 
 const MATCHTABLE_ID = 'matchtable'
 const DISPLAY_FROM_DATE = Date.now()
@@ -11,6 +12,7 @@ const difficulty = [
 ]
 
 const teamCache = {}
+let matchPredictor = null
 
 function fillTeamCache (teams) {
   teams.forEach(team => {
@@ -19,7 +21,7 @@ function fillTeamCache (teams) {
 }
 
 function calcDifficultyClass (match, isHomeGame) {
-  const adversityFactor = 1.0 - ((isHomeGame ? match.prob1 : match.prob2) + match.probtie / 2)
+  const adversityFactor = matchPredictor.calcAdversityFactor(match, isHomeGame)
   const difficultyPosition = Math.ceil(adversityFactor * difficulty.length)
   const calculatedDifficulty = difficulty[difficultyPosition - 1]
 
@@ -149,6 +151,7 @@ export default (teams, matches) => {
   const container = document.getElementById(MATCHTABLE_ID)
 
   fillTeamCache(teams)
+  matchPredictor = matchPredictions(teams)
 
   teams.forEach(team => {
     const tr = createTeamRow(team, matches)
