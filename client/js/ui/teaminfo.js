@@ -14,7 +14,7 @@ function createTeamDetailsDataRow (name, value) {
 
 function createTeamDetails (team) {
   const container = document.createElement('div')
-  container.classList.add('team--details')
+  container.classList.add('team--details', 'overlay')
 
   const dataTable = document.createElement('table')
   dataTable.classList.add('team--details__data')
@@ -33,7 +33,7 @@ function createTeamDetails (team) {
 
 function createTeamHeader (team) {
   const th = document.createElement('th')
-  th.classList.add('team')
+  th.classList.add('team', 'overlay--container')
 
   const content = document.createElement('div')
   content.classList.add('matchtable--content')

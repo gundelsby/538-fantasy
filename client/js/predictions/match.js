@@ -5,10 +5,18 @@ function calcAdversityFactor (match, isHomeGame) {
   return 1.0 - (winProbability + match.probtie / 2)
 }
 
+function calcGoalProbability (match) {
+  return {
+    home: 0,
+    away: 0
+  }
+}
+
 export default function (teams) {
   teamCache = teams
 
   return {
-    calcAdversityFactor
+    calcAdversityFactor,
+    calcGoalProbability
   }
 }
