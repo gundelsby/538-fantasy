@@ -3,6 +3,7 @@ import matchTable from './ui/matchtable.js'
 import stats from './statistics/teams.js'
 
 async function init () {
+  console.log('initializing...')
   const matches = await store.getMatches()
   const teams = await store.getTeams()
   console.log(`Found ${matches.length} matches and ${teams.length} teams`)
@@ -18,4 +19,5 @@ async function init () {
   matchTable(teams, matches)
 }
 
+console.log('538 Fantasy')
 init()

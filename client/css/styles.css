@@ -57,10 +57,12 @@ th {
 }
 
 .overlay {
+    background: #888;
+    border: 1px solid #eee;
+    display: none;
     position: absolute;
     top: 50%;
     left: 50%;
-    display: none;
 }
 
 .overlay--container:hover .overlay {
@@ -68,14 +70,14 @@ th {
     z-index: 2;
 }
 
-.team--details {
-    border: 1px solid #eee;
+.match--details__data {
+    color: #eee;    
 }
-.team--details__data {
-    background: #888;
-}
+
 .team--details__data th,
-.team--details__data td {
+.match--details__data th,
+.team--details__data td,
+.match--details__data td {
     padding: 4px 8px;
     white-space: nowrap;
 }

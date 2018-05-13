@@ -25,15 +25,31 @@ function calcDifficultyClass (match, isHomeGame) {
   return calculatedDifficulty ? calculatedDifficulty.class : ''
 }
 
+function createMatchDetailsDataRow (name, value) {
+  const row = document.createElement('tr')
+
+  const header = document.createElement('th')
+  header.textContent = name
+  row.appendChild(header)
+
+  const data = document.createElement('td')
+  data.textContent = typeof value === 'number' ? Number(value).toFixed(2) : value
+  row.appendChild(data)
+
+  return row
+}
+
 function createMatchDetails (match) {
   const element = document.createElement('div')
   element.classList.add('match--details', 'overlay')
   const data = matchPredictor.calcGoalProbability(match)
+  const dataTable = document.createElement('table')
+  dataTable.classList.add('match--details__data')
   Object.keys(data).forEach(key => {
-    const p = document.createElement('p')
-    p.textContent = `${key}: ${data[key]}`
-    element.appendChild(p)
+    const row = createMatchDetailsDataRow(key, data[key])
+    dataTable.appendChild(row)
   })
+  element.appendChild(dataTable)
 
   return element
 }
