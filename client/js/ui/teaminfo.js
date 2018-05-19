@@ -26,6 +26,8 @@ function createTeamDetails (team) {
   dataTable.appendChild(createTeamDetailsDataRow('A/M', team.goalsAgainst / team.matchesPlayed))
   dataTable.appendChild(createTeamDetailsDataRow('A/M (Home)', team.goalsAgainstHome / team.matchesPlayedHome))
   dataTable.appendChild(createTeamDetailsDataRow('A/M (Away)', team.goalsAgainstAway / team.matchesPlayedAway))
+  dataTable.appendChild(createTeamDetailsDataRow('Off rating', team.o_rating))
+  dataTable.appendChild(createTeamDetailsDataRow('Def rating', team.d_rating))
   container.appendChild(dataTable)
 
   return container

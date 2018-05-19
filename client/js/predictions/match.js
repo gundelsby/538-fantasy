@@ -23,7 +23,7 @@ function calcAdversityFactor (match, isHomeGame) {
 */
 
 function calcLowestLikelyScore (score1, score2) {
-  return Math.round(Math.min(score1, score2))
+  return Math.min(score1, score2)
 }
 
 function calcGoalProbability (match) {
@@ -34,10 +34,13 @@ function calcGoalProbability (match) {
   const avgAwayGoalsFor = awayTeam.goalsForAway / awayTeam.matchesPlayedAway
   const avgAwayGoalsAgainst = awayTeam.goalsAgainstAway / awayTeam.matchesPlayedAway
 
-  return {
-    home: calcLowestLikelyScore(avgHomeGoalsFor, avgAwayGoalsAgainst),
-    away: calcLowestLikelyScore(avgAwayGoalsFor, avgHomeGoalsAgainst)
-  }
+  const stuff = {}
+  stuff[`${homeTeam.name}`] = calcLowestLikelyScore(avgHomeGoalsFor, avgAwayGoalsAgainst)
+  stuff[`${awayTeam.name}`] = calcLowestLikelyScore(avgAwayGoalsFor, avgHomeGoalsAgainst)
+  stuff[`${homeTeam.name} (pred)`] = (homeTeam.o_rating + awayTeam.d_rating) / 2
+  stuff[`${awayTeam.name} (pred)`] = (awayTeam.o_rating + homeTeam.d_rating) / 2
+
+  return stuff
 }
 
 export default function (teams) {

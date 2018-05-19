@@ -42,7 +42,9 @@ function parse (json) {
   return {
     code: json.code,
     id: json.id,
-    name: getRealName(json)
+    name: getRealName(json),
+    d_rating: json.d_rating,
+    o_rating: json.o_rating
   }
 }
 
