@@ -8,9 +8,9 @@ async function init () {
   const teams = await store.getTeams()
   console.log(`Found ${matches.length} matches and ${teams.length} teams`)
 
-  const teamScores = stats.getTeamScores(matches)
+  const teamStats = stats.getTeamStats(matches)
   teams.forEach(team => {
-    const scores = teamScores[team.id]
+    const scores = teamStats[team.id]
     Object.keys(scores).forEach(key => {
       team[key] = scores[key]
     })

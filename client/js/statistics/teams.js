@@ -1,19 +1,13 @@
 const teams = {}
 
-function addTeamScore (teamId, goalsFor, goalsAgainst, isHomeGame) {
+function initTeam (teamId) {
   if (!teams[teamId]) {
-    teams[teamId] = {
-      goalsFor: 0,
-      goalsForHome: 0,
-      goalsForAway: 0,
-      goalsAgainst: 0,
-      goalsAgainstHome: 0,
-      goalsAgainstAway: 0,
-      matchesPlayed: 0,
-      matchesPlayedHome: 0,
-      matchesPlayedAway: 0
-    }
+    teams[teamId] = {}
   }
+}
+
+function addTeamScore (teamId, goalsFor, goalsAgainst, isHomeGame) {
+  initTeam(teamId)
 
   teams[teamId].goalsFor += goalsFor
   teams[teamId].goalsAgainst += goalsAgainst
@@ -30,11 +24,30 @@ function addTeamScore (teamId, goalsFor, goalsAgainst, isHomeGame) {
   }
 }
 
-function getTeamScores (matches) {
+function addTeamPoints (match) {
+  const homeTeam = match.team1_id
+  const awayTeam = match.team2_id
+
+  if (match.score1 === match.score2) {
+    teams[homeTeam].points = teams[homeTeam].points ? teams[homeTeam].points + 1 : 1
+    teams[awayTeam].points = teams[awayTeam].points ? teams[awayTeam].points + 1 : 1
+  }
+}
+
+function getTeamStats (matches) {
   matches.forEach(match => {
+    if (!teams[match.team1_id]) {
+      teams[match.team1_id] = {}
+    }
+
+    if (!teams[match.team2_id]) {
+      teams[match.team2_id] = {}
+    }
+
     if (typeof match.score1 === 'number') {
       addTeamScore(match.team1_id, match.score1, match.score2, true)
       addTeamScore(match.team2_id, match.score2, match.score1, false)
+      addTeamPoints(match)
     }
   })
 
@@ -42,5 +55,5 @@ function getTeamScores (matches) {
 }
 
 export default {
-  getTeamScores
+  getTeamStats
 }
