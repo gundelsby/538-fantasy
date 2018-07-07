@@ -65,8 +65,29 @@ function createTeamRow (team, matches) {
   return tr
 }
 
+function createRoundDatesRow () {
+  const dateRow = document.createElement('tr')
+  dateRow.appendChild(document.createElement('td'))
+
+  rounds.filter(round => round.start > DISPLAY_FROM_DATE).forEach(round => {
+    const roundHeader = document.createElement('th')
+    roundHeader.textContent = round.start.toLocaleDateString('no-NB',
+      {
+        hour12: false,
+        month: true,
+        day: true
+      })
+
+    dateRow.appendChild(roundHeader)
+  })
+
+  return dateRow
+}
+
 export default (teams, matches) => {
   const tbody = document.createElement('tbody')
+  const thead = document.createElement('thead')
+  thead.appendChild(createRoundDatesRow())
   const container = document.getElementById(MATCHTABLE_ID)
 
   createMatchInfo = matchInfo(teams)
@@ -76,5 +97,6 @@ export default (teams, matches) => {
     tbody.appendChild(tr)
   })
 
+  container.appendChild(thead)
   container.appendChild(tbody)
 }
