@@ -74,8 +74,8 @@ function createRoundDatesRow () {
     roundHeader.textContent = round.start.toLocaleDateString('no-NB',
       {
         hour12: false,
-        month: true,
-        day: true
+        month: 'short',
+        day: '2-digit'
       })
 
     dateRow.appendChild(roundHeader)
