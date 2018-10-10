@@ -23,12 +23,12 @@ const rounds = [
   {start: new Date('2018-09-15T17:00')},
   {start: new Date('2018-09-22T17:00')},
   {start: new Date('2018-09-29T17:00')},
-  {start: new Date('2018-10-06T17:00')},
-  {start: new Date('2018-10-20T17:00')},
+  {start: new Date('2018-10-06T14:30')},
+  {start: new Date('2018-10-20T14:30')},
   {start: new Date('2018-10-27T17:00')},
   {start: new Date('2018-11-03T17:00')},
   {start: new Date('2018-11-11T17:00')},
-  {start: new Date('2018-11-25T17:00')}
+  {start: new Date('2018-11-24T17:00')}
 ]
 
 export default rounds
