@@ -42,16 +42,16 @@ function createTeamRow (team, matches) {
   const upcomingMatches = matches.filter(match => {
     return match.team1_id === team.id || match.team2_id === team.id
   }).filter(match => {
-    return match.datetime > DISPLAY_FROM_DATE
+    return match.datetime >= DISPLAY_FROM_DATE
   })
 
   const upcomingRounds = rounds.filter(round => {
-    return round.start > DISPLAY_FROM_DATE
+    return round.start >= DISPLAY_FROM_DATE
   }).map((round, index, arr) => {
     const nextStart = arr[index + 1] ? arr[index + 1].start : null
 
     round.matches = upcomingMatches.filter(match => {
-      return match.datetime >= round.start && match.datetime < nextStart
+      return match.datetime >= round.start && (!nextStart || match.datetime < nextStart)
     })
 
     return round

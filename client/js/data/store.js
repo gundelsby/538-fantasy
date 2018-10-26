@@ -19,9 +19,7 @@ async function getTeams () {
   if (!store.teams.length) {
     const data = await getJson(FORECAST_DATA_URL)
 
-    store.teams = data.forecasts[0].teams.map((team) => {
-      return teamParse(team)
-    })
+    store.teams = data.forecasts[0].teams.map(teamParse)
   }
 
   return store.teams
@@ -31,9 +29,7 @@ async function getMatches () {
   if (!store.matches.length) {
     const data = await getJson(MATCHES_DATA_URL)
 
-    store.matches = data.map((match) => {
-      return matchParse(match)
-    })
+    store.matches = data.map(matchParse)
   }
 
   return store.matches

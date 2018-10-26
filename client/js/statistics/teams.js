@@ -2,7 +2,18 @@ const teams = {}
 
 function initTeam (teamId) {
   if (!teams[teamId]) {
-    teams[teamId] = {}
+    teams[teamId] = {
+      goalsFor: 0,
+      goalsForHome: 0,
+      goalsForAway: 0,
+      goalsAgainst: 0,
+      goalsAgainstHome: 0,
+      goalsAgainstAway: 0,
+      matchesPlayed: 0,
+      matchesPlayedHome: 0,
+      matchesPlayedAway: 0,
+      points: 0
+    }
   }
 }
 
@@ -36,14 +47,6 @@ function addTeamPoints (match) {
 
 function getTeamStats (matches) {
   matches.forEach(match => {
-    if (!teams[match.team1_id]) {
-      teams[match.team1_id] = {}
-    }
-
-    if (!teams[match.team2_id]) {
-      teams[match.team2_id] = {}
-    }
-
     if (typeof match.score1 === 'number') {
       addTeamScore(match.team1_id, match.score1, match.score2, true)
       addTeamScore(match.team2_id, match.score2, match.score1, false)

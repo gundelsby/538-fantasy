@@ -6,7 +6,8 @@ function createTeamDetailsDataRow (name, value) {
   row.appendChild(header)
 
   const data = document.createElement('td')
-  data.textContent = typeof value === 'number' ? Number(value).toFixed(2) : value
+  const numericValue = Number(value)
+  data.textContent = Number.isNaN(numericValue) ? value : numericValue.toFixed(2)
   row.appendChild(data)
 
   return row
