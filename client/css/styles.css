@@ -71,13 +71,10 @@ th {
 }
 
 .match--details__data {
-    color: #eee;    
+    color: #eee;
 }
 
-.team--details__data th,
-.match--details__data th,
-.team--details__data td,
-.match--details__data td {
+.team--details__data th, .match--details__data th, .team--details__data td, .match--details__data td {
     padding: 4px 8px;
     white-space: nowrap;
 }
