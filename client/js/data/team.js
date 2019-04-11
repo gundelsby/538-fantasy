@@ -30,11 +30,11 @@
 
 function getRealName (json) {
   if (json.id === 2791) {
-    return 'søpla'
+    return 'søpla';
   } else if (json.id === 438) {
-    return 'bartepakket'
+    return 'bartepakket';
   } else {
-    return json.name
+    return json.name;
   }
 }
 
@@ -45,7 +45,7 @@ function parse (json) {
     name: getRealName(json),
     d_rating: json.d_rating,
     o_rating: json.o_rating
-  }
+  };
 }
 
-export default parse
+export default parse;

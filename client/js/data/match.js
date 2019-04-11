@@ -39,7 +39,7 @@ function parse (json) {
     probtie: json.probtie,
     score1: json.score1,
     score2: json.score2
-  }
+  };
 }
 
-export default parse
+export default parse;
