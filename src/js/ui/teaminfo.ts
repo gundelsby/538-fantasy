@@ -29,6 +29,7 @@ function createTeamDetails(team: Team) {
 
   const dataTable = document.createElement('table');
   dataTable.classList.add('team--details__data');
+  dataTable.appendChild(createTeamDetailsDataRow('Poeng', team.points));
   dataTable.appendChild(createTeamDetailsDataRow('Mål scoret', team.goalsFor));
   dataTable.appendChild(
     createTeamDetailsDataRow(' -> Gjennomsnitt', getAverage(team.goalsFor, team.matchesPlayed))

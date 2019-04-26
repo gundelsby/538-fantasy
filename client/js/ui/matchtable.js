@@ -76,10 +76,28 @@ export default (teams, matches) => {
         return;
     }
     createMatchInfo = matchInfo(teams);
-    teams.forEach((team) => {
+    teams.sort(tableSort).forEach((team) => {
         const tr = createTeamRow(team, matches);
         tbody.appendChild(tr);
     });
     container.appendChild(thead);
     container.appendChild(tbody);
 };
+function tableSort(a, b) {
+    const aPoints = a.points || 0;
+    const aGoalDiff = getGoalDiff(a);
+    const bPoints = b.points || 0;
+    const bGoalDiff = getGoalDiff(b);
+    if (bPoints - aPoints !== 0) {
+        return bPoints - aPoints;
+    }
+    if (bGoalDiff - aGoalDiff !== 0) {
+        return bGoalDiff - aGoalDiff;
+    }
+    return (b.goalsFor || 0) - (a.goalsFor || 0);
+}
+function getGoalDiff(team) {
+    const goalsFor = team.goalsFor || 0;
+    const goalsAgainst = team.goalsAgainst || 0;
+    return goalsFor - goalsAgainst;
+}

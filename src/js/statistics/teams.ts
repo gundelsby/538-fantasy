@@ -52,15 +52,25 @@ function addTeamScore(teamId: number, goalsFor: number, goalsAgainst: number, is
 function addTeamPoints(match: Match) {
   const homeTeam = teams.get(match.team1_id);
   const awayTeam = teams.get(match.team2_id);
+  const { score1, score2 } = match;
 
   if (!homeTeam || !awayTeam) {
     return;
   }
 
-  if (match.score1 === match.score2) {
-    homeTeam.points = homeTeam.points ? homeTeam.points + 1 : 1;
-    awayTeam.points = awayTeam.points ? awayTeam.points + 1 : 1;
+  let homeScore = 0;
+  let awayScore = 0;
+
+  if (score1 === score2) {
+    homeScore = 1;
+    awayScore = 1;
+  } else {
+    homeScore = score1 > score2 ? 3 : 0;
+    awayScore = score1 < score2 ? 3 : 0;
   }
+
+  homeTeam.points = homeTeam.points ? homeTeam.points + homeScore : homeScore;
+  awayTeam.points = awayTeam.points ? awayTeam.points + awayScore : awayScore;
 
   teams.set(homeTeam.id, homeTeam);
   teams.set(awayTeam.id, awayTeam);
