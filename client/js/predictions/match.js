@@ -8,17 +8,6 @@ function calcAdversityFactor(match, isHomeGame) {
     const winProbability = isHomeGame ? match.prob1 : match.prob2;
     return 1.0 - (winProbability + match.probtie / 2);
 }
-/*
-  goalsFor: 0,
-  goalsForHome: 0,
-  goalsForAway: 0,
-  goalsAgainst: 0,
-  goalsAgainstHome: 0,
-  goalsAgainstAway: 0,
-  matchesPlayed: 0,
-  matchesPlayedHome: 0,
-  matchesPlayedAway: 0
-*/
 function calcLowestLikelyScore(score1, score2) {
     return Math.min(score1, score2);
 }
@@ -32,6 +21,13 @@ function calcGoalProbability(match) {
     const homeTeam = teamCache.get(match.team1_id);
     const awayTeam = teamCache.get(match.team2_id);
     if (!homeTeam || !awayTeam) {
+        console.log(`Missing teams for match ${match.id}!`);
+        if (!homeTeam) {
+            console.log(`Home team missing, id: ${match.team1_id}`);
+        }
+        if (!awayTeam) {
+            console.log(`Away team missing, id: ${match.team2_id}`);
+        }
         return;
     }
     const avgHomeGoalsFor = getAverage(homeTeam.goalsForHome, homeTeam.matchesPlayedHome);

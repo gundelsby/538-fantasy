@@ -45,12 +45,40 @@ function createMatchDetails(match) {
     element.appendChild(dataTable);
     return element;
 }
+function calcOutlook(match, isHomeGame) {
+    const homeTeam = teamCache.get(match.team1_id);
+    const awayTeam = teamCache.get(match.team2_id);
+    const predictions = matchPredictor.calcGoalProbability(match);
+    if (match.id === 401106546) {
+        console.log(predictions);
+    }
+    if (!predictions || !homeTeam || !awayTeam) {
+        return '';
+    }
+    let emojis = '';
+    const goalsFor = isHomeGame ? predictions[homeTeam.name] : predictions[awayTeam.name];
+    const goalsAgainst = isHomeGame ? predictions[awayTeam.name] : predictions[homeTeam.name];
+    if (match.id === 401106546) {
+        console.log(predictions);
+        console.log(`${goalsFor}, ${goalsFor > 1}`);
+        console.log(`${goalsAgainst}, ${goalsAgainst < 1}`);
+    }
+    if (goalsFor > 1) {
+        emojis += '⚽';
+    }
+    emojis += goalsAgainst < 1 ? '🛡️' : '😬';
+    return emojis;
+}
 function createMatchInfo(currentTeamId, match) {
     const element = document.createElement('div');
     element.classList.add('match--info', 'matchtable--content', 'overlay--container');
+    element.dataset.matchId = String(match.id);
     const isHomeGame = match.team1_id === currentTeamId;
     const opponent = isHomeGame ? teamCache.get(match.team2_id) : teamCache.get(match.team1_id);
-    element.textContent = opponent ? `${opponent.code} (${isHomeGame ? 'H' : 'B'})` : '';
+    const outlookEmojis = calcOutlook(match, isHomeGame);
+    element.textContent = opponent
+        ? `${opponent.code} (${isHomeGame ? 'H' : 'B'}) ${outlookEmojis}`
+        : '';
     element.classList.add(calcDifficultyClass(match, isHomeGame));
     element.appendChild(createMatchDetails(match));
     return element;
