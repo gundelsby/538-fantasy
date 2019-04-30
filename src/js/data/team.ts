@@ -27,6 +27,10 @@
     "wins": 7.4788
   }
 */
+
+/**
+ *
+ */
 export type Team = {
   code: string;
   id: number;
