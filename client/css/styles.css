@@ -1,80 +1,90 @@
 body {
-    background-color: #333;
-    color: #eee;
+  background-color: #333;
+  color: #eee;
 }
 
 table {
-    border-collapse: collapse;
+  border-collapse: collapse;
 }
 
-th, td {
-    background-color: #555;
-    border: 1px solid #444;
+th,
+td {
+  background-color: #555;
+  border: 1px solid #444;
 }
 
 th {
-    text-align: left;
+  text-align: left;
 }
 
 .matchtable {
-    margin: 4px;
+  margin: 4px;
 }
 
 .matchtable--content {
-    padding: 4px 8px;
+  padding: 4px 8px;
 }
 
 .match--info {
-    color: #227;
+  color: #227;
 }
 
 .difficulty--baby {
-    background-color: #4f4;
+  background-color: #4f4;
 }
 
 .difficulty--easy {
-    background-color: #7d3;
+  background-color: #7d3;
 }
 
 .difficulty--medium {
-    background-color: #ee0;
+  background-color: #ee0;
 }
 
 .difficulty--hard {
-    background-color: #fa3;
+  background-color: #fa3;
 }
 
 .difficulty--nightmare {
-    background-color: #f66;
+  background-color: #f66;
 }
 
 .round--matches {
-    list-style-type: none;
+  list-style-type: none;
 }
 
 .overlay--container {
-    position: relative;
+  position: relative;
 }
 
 .overlay {
-    background: #888;
-    border: 1px solid #eee;
-    display: none;
-    position: absolute;
-    top: 50%;
-    left: 50%;
+  background: #888;
+  border: 1px solid #eee;
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
 }
 
 .overlay--container:hover .overlay {
-    display: block;
-    z-index: 2;
+  display: block;
+  z-index: 2;
 }
 
+.match---details__datetime,
 .match--details__data {
-    color: #eee;
+  color: #eee;
 }
 
-.team--details__data th, .match--details__data th, .team--details__data td, .match--details__data td {
-    padding: 4px 8px;
-    white-space: nowrap;
+.match---details__datetime,
+.team--details__data th,
+.match--details__data th,
+.team--details__data td,
+.match--details__data td {
+  padding: 4px 8px;
+  white-space: nowrap;
+}
+
+.match---details__datetime {
+  margin: 0;
 }

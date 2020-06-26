@@ -13,7 +13,7 @@ const difficulty = [
 const teamCache: Map<Team['id'], Team> = new Map();
 let matchPredictor: MatchPredictor;
 
-function fillTeamCache(teams: Array<Team>) {
+function fillTeamCache(teams: Team[]) {
   teams.forEach((team) => {
     teamCache.set(team.id, team);
   });
@@ -44,6 +44,17 @@ function createMatchDetailsDataRow(name: string, value: number) {
 function createMatchDetails(match: Match): HTMLElement {
   const element = document.createElement('div');
   element.classList.add('match--details', 'overlay');
+
+  const dateHeader = document.createElement('p');
+  dateHeader.classList.add('match---details__datetime');
+  dateHeader.textContent = match.datetime.toLocaleDateString('no-NB', {
+    hour12: false,
+    month: 'short',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit'
+  });
+  element.appendChild(dateHeader);
 
   const data = matchPredictor.calcGoalProbability(match);
 
@@ -114,7 +125,7 @@ function createMatchInfo(currentTeamId: number, match: Match) {
   return element;
 }
 
-export default function(teams: Array<Team>): (currentTeamId: number, match: Match) => HTMLElement {
+export default function(teams: Team[]): (currentTeamId: number, match: Match) => HTMLElement {
   fillTeamCache(teams);
   matchPredictor = createMatchPredictor(teams);
 
