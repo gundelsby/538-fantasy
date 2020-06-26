@@ -1,39 +1,39 @@
 import { Match } from './match.js';
 
-export type Round = {
+export interface Round {
   start: Date;
   matches?: Match[];
-};
+}
 
-export const rounds: Array<Round> = [
-  { start: new Date('2019-03-30T14:30') },
-  { start: new Date('2019-04-06T17:00') },
-  { start: new Date('2019-04-12T18:00') },
-  { start: new Date('2019-04-22T17:00') },
-  { start: new Date('2019-04-27T17:00') },
-  { start: new Date('2019-05-04T18:00') },
-  { start: new Date('2019-05-11T17:00') },
-  { start: new Date('2019-05-16T17:00') },
-  { start: new Date('2019-05-19T17:00') },
-  { start: new Date('2019-05-25T17:00') },
-  { start: new Date('2019-06-15T17:00') },
-  { start: new Date('2019-06-22T17:00') },
-  { start: new Date('2019-06-29T17:00') },
-  { start: new Date('2019-07-04T19:00') },
-  { start: new Date('2019-07-13T14:30') },
-  { start: new Date('2019-08-03T18:00') },
-  { start: new Date('2019-08-10T17:00') },
-  { start: new Date('2019-08-17T17:00') },
-  { start: new Date('2019-08-24T17:00') },
-  { start: new Date('2019-08-30T18:00') },
-  { start: new Date('2019-09-14T18:00') },
-  { start: new Date('2019-09-21T18:00') },
-  { start: new Date('2019-09-28T18:00') },
-  { start: new Date('2019-10-05T18:00') },
-  { start: new Date('2019-10-19T18:00') },
-  { start: new Date('2019-10-26T18:00') },
-  { start: new Date('2019-11-02T18:00') },
-  { start: new Date('2019-11-09T18:00') },
-  { start: new Date('2019-11-24T18:00') },
-  { start: new Date('2019-12-01T18:00') }
+export const rounds: Round[] = [
+  { start: new Date('2020-06-17T17:00') },
+  { start: new Date('2020-06-20T17:00') },
+  { start: new Date('2020-06-24T17:00') },
+  { start: new Date('2020-06-27T17:00') },
+  { start: new Date('2020-07-01T17:00') },
+  { start: new Date('2020-07-04T17:00') },
+  { start: new Date('2020-07-11T17:00') },
+  { start: new Date('2020-07-15T17:00') },
+  { start: new Date('2020-07-18T17:00') },
+  { start: new Date('2020-07-25T17:00') },
+  { start: new Date('2020-07-29T17:00') },
+  { start: new Date('2020-08-01T17:00') },
+  { start: new Date('2020-08-08T17:00') },
+  { start: new Date('2020-08-15T17:00') },
+  { start: new Date('2020-08-22T17:00') },
+  { start: new Date('2020-08-29T17:00') },
+  { start: new Date('2020-09-04T17:00') },
+  { start: new Date('2020-09-07T17:00') },
+  { start: new Date('2020-09-09T17:00') },
+  { start: new Date('2020-09-13T17:00') },
+  { start: new Date('2020-09-16T17:00') },
+  { start: new Date('2020-09-20T17:00') },
+  { start: new Date('2020-09-23T17:00') },
+  { start: new Date('2020-09-27T17:00') },
+  { start: new Date('2020-10-04T17:00') },
+  { start: new Date('2020-10-18T17:00') },
+  { start: new Date('2020-11-01T17:00') },
+  { start: new Date('2020-11-08T17:00') },
+  { start: new Date('2020-11-22T17:00') },
+  { start: new Date('2020-11-29T17:00') }
 ];
